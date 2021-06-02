@@ -20,6 +20,6 @@ void HX711_read() {
       Serial.println("HX711 not found.");
   }
   delay(2000);
-//  lcd.clear();
+  lcd.clear();
 
 }

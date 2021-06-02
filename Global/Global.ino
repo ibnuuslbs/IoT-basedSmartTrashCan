@@ -4,10 +4,12 @@
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 Servo servo1;
+int fullTrash = 0;
  
 // Circuit wiring
 const int LOADCELL_DOUT_PIN = 12;
 const int LOADCELL_SCK_PIN = 13;
+int limitSwitch = 23;
 int trigPin = 27;
 int echoPin = 26;
 long distance;
@@ -21,9 +23,10 @@ void setup() {
   Serial.begin(57600);
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
   servo1.attach(25); 
+  pinMode(limitSwitch, INPUT);
   pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);// put your setup code here, to run once:
-  lcd.begin();
+  pinMode(echoPin, INPUT); 
+  lcd.init();
   lcd.backlight();
   lcd.setCursor(0,0);
   lcd.print("Jehian Airell S.");
@@ -34,8 +37,21 @@ void setup() {
 }
  
 void loop() {
- lcd_print();
- HX711_read();
- ultrasonic_read();
- servo_act();
+ fullTrash = digitalRead(limitSwitch);
+ 
+ if (fullTrash == HIGH) {
+  lcd.clear();
+  lcd_print();
+  HX711_read();
+  ultrasonic_read();
+  servo_act(); 
+ }
+
+ else if (fullTrash == LOW) {
+  lcd.setCursor(0, 0);
+  lcd.print(" Tempat  Sampah ");
+  lcd.setCursor(0, 1);
+  lcd.print("     Penuh      ");
+ }
+// lcd.clear();
 }
