@@ -5,7 +5,7 @@ void servo_act() {
     servo1.write(0);
     if((distance <= 10) && (fullTrash==HIGH)){
       servo1.write(90);
-      }
-     previousMillis = millis();
+    }
+      previousMillis = millis();
  }
 }
