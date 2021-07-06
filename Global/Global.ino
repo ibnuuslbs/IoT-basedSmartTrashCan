@@ -8,8 +8,8 @@ Servo servo1;
 int fullTrash = 0;
 
 const char *UBIDOTS_TOKEN = "BBFF-y750mo6aH9nmgaslWPvrbQnEzgGJIn";  // Put here your Ubidots TOKEN
-const char *WIFI_SSID = "Redmi 8";      // Put here your Wi-Fi SSID
-const char *WIFI_PASS = "elektro16";      // Put here your Wi-Fi password
+const char *WIFI_SSID = "Mi Phone";      // Put here your Wi-Fi SSID
+const char *WIFI_PASS = "1arext1arex";      // Put here your Wi-Fi password
 const char *DEVICE_LABEL = "iot-based-smart-trash-can-device1";   // Put here your Device label to which data  will be published
 const char *VARIABLE_LABEL = "variable-0.8905185595793461"; // Put here your Variable label to which data  will be published
 
@@ -76,23 +76,24 @@ void setup() {
 }
  
 void loop() {
+
   fullTrash = digitalRead(limitSwitch);
 
-   
-  if (fullTrash == HIGH) {
-    lcd.clear();
-    lcd_print();
-    HX711_read();
-    ultrasonic_read();
-    servo_act(); 
-  }
+  if (fullTrash == LOW) {
 
-  else if (fullTrash == LOW) {
     lcd.setCursor(0, 0);
     lcd.print(" Tempat  Sampah ");
     lcd.setCursor(0, 1);
     lcd.print("     Penuh      ");
     servo1.write(0);
+ 
  }
+ 
+  if (fullTrash == HIGH) {
+    lcd_print();
+    HX711_read();
+    ultrasonic_read();
+    servo_act(); 
+  }
   publish_ubidots();
 }

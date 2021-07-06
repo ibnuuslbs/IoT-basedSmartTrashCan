@@ -1,5 +1,5 @@
 void HX711_read() {
-  
+  int massa = 0;
   long reading = scale.read() * 495;
   long readings = scale.read();
   float grams = (float)reading / 100000.0;
@@ -12,10 +12,11 @@ void HX711_read() {
 //      Serial.print(readings);
   Serial.print(grams);
   Serial.println("g");
-  lcd.setCursor(5, 1);
-  lcd.print(String(grams,2) + "  ");
+  lcd.setCursor(0, 1);
+  massa = int(grams);
+  lcd.print("    " + String(massa) + " gram    ");
     
-  delay(5000);
-  lcd.clear();
+//  delay(100);
+//  lcd.clear();
 
 }
