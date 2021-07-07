@@ -1,6 +1,6 @@
 void publish_ubidots() {
 
-  float massa = ((scale.read() * 495) / 100000.0) - 165.84;
+  float massa = ((scale.read() * 484.47) / 100000.0) - 483.48;
   if (massa < 0 ) {
     massa = 0;
   }

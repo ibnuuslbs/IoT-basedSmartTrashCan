@@ -78,31 +78,14 @@ void setup() {
 void loop() {
 
   fullTrash = digitalRead(limitSwitch);
+  float massa = ((scale.read() * 484.47) / 100000.0) - 483.48;
  
   if (fullTrash == HIGH) {
     lcd_print();
-//    HX711_read();
-    int massa = 0;
-    long reading = scale.read() * 484.47;
-    long readings = scale.read();
-    float grams = (float)reading / 100000.0;
-    grams = grams - 483.48;
-    Serial.print("HX711 reading: ");
-      
-    if (grams < 0) {
-      grams = 0;
-    }
-  
-    Serial.print(grams);
-    Serial.println("g");
-    lcd.setCursor(0, 1);
-    massa = int(grams);
-    lcd.print("    " + String(massa) + " gram    ");
-    ultrasonic_read();
-    servo_act(); 
+    HX711_read();
   }
   
-    if ((fullTrash == LOW) || ((((scale.read() * 484.47) / 100000.0) - 483.48) >= 5000.00)) {
+  if ((fullTrash == LOW) || (massa >= 5000.00)) {
     fullTrashNotifLCD();
     servo1.write(0);
  
