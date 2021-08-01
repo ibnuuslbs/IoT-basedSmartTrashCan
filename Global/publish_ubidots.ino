@@ -12,8 +12,9 @@ void publish_ubidots() {
   if (abs(millis() - timer) > PUBLISH_FREQUENCY) // triggers the routine every 5 seconds
   {
     ubidots.add(VARIABLE_LABEL, massa); // Insert your variable Labels and the value to be sent
+    ubidots.add(VARIABLE_INDICATOR_LABEL, indicator); // Insert your variable Labels and the value to be sent
     ubidots.publish(DEVICE_LABEL);
-    timer = millis();
+    timer = millis();  
   }
   ubidots.loop();
 }

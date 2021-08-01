@@ -6,12 +6,14 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 Servo servo1;
 int fullTrash = 0;
+bool indicator = 0;
 
 const char *UBIDOTS_TOKEN = "BBFF-y750mo6aH9nmgaslWPvrbQnEzgGJIn";  // Put here your Ubidots TOKEN
 const char *WIFI_SSID = "Mi Phone";      // Put here your Wi-Fi SSID
 const char *WIFI_PASS = "1arext1arex";      // Put here your Wi-Fi password
 const char *DEVICE_LABEL = "iot-based-smart-trash-can-device1";   // Put here your Device label to which data  will be published
 const char *VARIABLE_LABEL = "variable-0.8905185595793461"; // Put here your Variable label to which data  will be published
+const char *VARIABLE_INDICATOR_LABEL = ""; 
 
 
 
@@ -83,11 +85,13 @@ void loop() {
   if (fullTrash == HIGH) {
     lcd_print();
     HX711_read();
+    indicator = 0;
   }
   
   if ((fullTrash == LOW) || (massa >= 5000.00)) {
     fullTrashNotifLCD();
     servo1.write(0);
+    indicator = 1;
  
  }
   
